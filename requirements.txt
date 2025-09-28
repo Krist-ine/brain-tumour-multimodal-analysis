@@ -8,3 +8,5 @@ Pillow
 torch_geometric
 kaggle
 tqdm
+pytorch-tabnet
+

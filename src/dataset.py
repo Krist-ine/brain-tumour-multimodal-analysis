@@ -7,6 +7,7 @@ import os
 import numpy as np
 
 class BrainTumorDataset(Dataset):
+    idx_to_class = {0: "glioma", 1: "meningioma", 2: "notumor", 3: "pituitary"} # <--- ADD THIS LINE
     def __init__(self, root_dir):
         self.root_dir = root_dir
         self.image_paths = []
@@ -40,9 +41,10 @@ class BrainTumorDataset(Dataset):
         image_tensor = self.transform(image)
 
         # 2. Generate synthetic tabular data (will be used later)
-        signal = label * 0.25
+        signal = label * 0.1  # Make the signal much weaker
         noise = np.random.randn(10)
-        synthetic_tabular = torch.tensor(noise + signal, dtype=torch.float32)
+        # Add much more noise and a weaker signal
+        synthetic_tabular = torch.tensor((noise * 3.0) + signal, dtype=torch.float32) 
 
         # 3. Generate synthetic graph data (will be used later)
         num_nodes = 15
